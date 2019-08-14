@@ -1,9 +1,13 @@
 import com.sun.javafx.PlatformUtil;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 public class HotelBookingTest {
@@ -27,8 +31,9 @@ public class HotelBookingTest {
         setDriverPath();
 
         driver.get("https://www.cleartrip.com/");
+        waitFor(10,driver.findElement(By.linkText("Your trips")));
         hotelLink.click();
-
+        waitFor(10,localityTextBox);
         localityTextBox.sendKeys("Indiranagar, Bangalore");
 
         new Select(travellerSelection).selectByVisibleText("1 room, 2 adults");
@@ -36,6 +41,12 @@ public class HotelBookingTest {
 
         driver.quit();
 
+    }
+    
+    private void waitFor(int durationInSeconds , WebElement elem) {
+		
+    	WebDriverWait wait = new WebDriverWait (driver, 15);
+    	wait.until(ExpectedConditions.elementToBeClickable(elem));
     }
 
     private void setDriverPath() {
