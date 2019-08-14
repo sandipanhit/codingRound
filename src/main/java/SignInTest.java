@@ -33,12 +33,9 @@ public class SignInTest {
     }
 
     private void waitFor(int durationInSeconds , WebElement elem) {
-		/*
-		 * try { Thread.sleep(durationInMilliSeconds); } catch (InterruptedException e)
-		 * { e.printStackTrace(); //To change body of catch statement use File |
-		 * Settings | File Templates. }
-		 */
-    	WebDriverWait wait = new WebDriverWait (driver, 15);
+		
+    	WebDriverWait wait = new WebDriverWait (driver, durationInSeconds);
+    	//Wait for durationInSeconds until element is clickable
     	wait.until(ExpectedConditions.elementToBeClickable(elem));
     }
 

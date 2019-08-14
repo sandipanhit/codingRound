@@ -45,7 +45,8 @@ public class HotelBookingTest {
     
     private void waitFor(int durationInSeconds , WebElement elem) {
 		
-    	WebDriverWait wait = new WebDriverWait (driver, 15);
+    	WebDriverWait wait = new WebDriverWait (driver, durationInSeconds);
+    	//Wait for durationInSeconds until element is clickable
     	wait.until(ExpectedConditions.elementToBeClickable(elem));
     }
 
