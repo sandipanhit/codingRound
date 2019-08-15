@@ -4,15 +4,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class HotelBookingTest {
 
-    WebDriver driver = new ChromeDriver();
+    WebDriver driver;
 
     @FindBy(linkText = "Hotels")
     private WebElement hotelLink;
@@ -25,6 +28,15 @@ public class HotelBookingTest {
 
     @FindBy(id = "travellersOnhome")
     private WebElement travellerSelection;
+    
+    @BeforeClass
+    public void setUp()
+    {
+    	ChromeOptions option = new ChromeOptions();
+    	option.addArguments("--disable-notifications");
+    	driver =new ChromeDriver(option);
+    	
+    }
 
     @Test
     public void shouldBeAbleToSearchForHotels() {
@@ -41,7 +53,7 @@ public class HotelBookingTest {
         new Select(travellerSelection).selectByVisibleText("1 room, 2 adults");
         searchButton.click();
 
-        driver.quit();
+        
 
     }
     
@@ -50,6 +62,14 @@ public class HotelBookingTest {
     	WebDriverWait wait = new WebDriverWait (driver, durationInSeconds);
     	//Wait for durationInSeconds until element is clickable
     	wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(by)));
+    }
+    
+    @AfterClass
+    public void tearDown()
+    {
+    	//close the browser
+    	driver.quit();
+    	
     }
 
     private void setDriverPath() {
