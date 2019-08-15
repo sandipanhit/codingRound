@@ -1,4 +1,8 @@
 import com.sun.javafx.PlatformUtil;
+
+import java.util.List;
+import java.util.Set;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,7 +29,7 @@ public class SignInTest {
     }
 
     @Test
-    public void shouldThrowAnErrorIfSignInDetailsAreMissing() {
+    public void shouldThrowAnErrorIfSignInDetailsAreMissing(){
 
         setDriverPath();
         driver.manage().window().maximize();
@@ -33,11 +37,18 @@ public class SignInTest {
         //waitFor(2000);
         
         waitFor(10,By.linkText("Your trips"));
+        
 
         driver.findElement(By.linkText("Your trips")).click();
         driver.findElement(By.id("SignIn")).click();
+        
+       //Switch to iFrame
+        driver.switchTo().frame("modal_window");
+       
 
-        driver.findElement(By.id("signInButton")).click();
+       driver.findElement(By.id("signInButton")).click();
+       
+
 
         String errors1 = driver.findElement(By.id("errors1")).getText();
         Assert.assertTrue(errors1.contains("There were errors in your submission"));
