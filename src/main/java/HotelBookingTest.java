@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -29,12 +30,17 @@ public class HotelBookingTest {
     @FindBy(id = "travellersOnhome")
     private WebElement travellerSelection;
     
+    
+    
     @BeforeClass
     public void setUp()
     {
     	ChromeOptions option = new ChromeOptions();
     	option.addArguments("--disable-notifications");
     	driver =new ChromeDriver(option);
+    	////This initElements method will create all WebElements
+    	PageFactory.initElements(driver, this);
+    	
     	
     }
 
@@ -45,7 +51,7 @@ public class HotelBookingTest {
         driver.get("https://www.cleartrip.com/");
         WebDriverWait wait = new WebDriverWait (driver, 25);
         wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.linkText("Your trips"))));
-        
+               
         hotelLink.click();
         waitFor(10,By.linkText("Hotels"));
         localityTextBox.sendKeys("Indiranagar, Bangalore");
