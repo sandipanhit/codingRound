@@ -20,7 +20,7 @@ public class SignInTest {
         driver.get("https://www.cleartrip.com/");
         //waitFor(2000);
         
-        waitFor(10,driver.findElement(By.linkText("Your trips")));
+        waitFor(10,By.linkText("Your trips"));
 
         driver.findElement(By.linkText("Your trips")).click();
         driver.findElement(By.id("SignIn")).click();
@@ -32,11 +32,11 @@ public class SignInTest {
         driver.quit();
     }
 
-    private void waitFor(int durationInSeconds , WebElement elem) {
+    private void waitFor(int durationInSeconds , By by) {
 		
     	WebDriverWait wait = new WebDriverWait (driver, durationInSeconds);
     	//Wait for durationInSeconds until element is clickable
-    	wait.until(ExpectedConditions.elementToBeClickable(elem));
+    	wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(by)));
     }
 
     private void setDriverPath() {

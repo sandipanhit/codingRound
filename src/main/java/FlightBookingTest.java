@@ -22,7 +22,7 @@ public class FlightBookingTest {
 
         setDriverPath();
         driver.get("https://www.cleartrip.com/");
-        waitFor(20,driver.findElement(By.id("OneWay")));
+        waitFor(20,By.id("OneWay"));
         driver.findElement(By.id("OneWay")).click();
 
         driver.findElement(By.id("FromTag")).clear();
@@ -30,7 +30,7 @@ public class FlightBookingTest {
 
         //wait for the auto complete options to appear for the origin
 
-        waitFor(20,driver.findElement(By.id("ui-id-1")));
+        waitFor(20,By.id("ui-id-1"));
         List<WebElement> originOptions = driver.findElement(By.id("ui-id-1")).findElements(By.tagName("li"));
         originOptions.get(0).click();
 
@@ -39,7 +39,7 @@ public class FlightBookingTest {
 
         //wait for the auto complete options to appear for the destination
 
-        waitFor(20,driver.findElement(By.id("ui-id-2")));
+        waitFor(20,By.id("ui-id-2"));
         //select the first item from the destination auto complete list
         List<WebElement> destinationOptions = driver.findElement(By.id("ui-id-2")).findElements(By.tagName("li"));
         destinationOptions.get(0).click();
@@ -49,7 +49,7 @@ public class FlightBookingTest {
         //all fields filled in. Now click on search
         driver.findElement(By.id("SearchBtn")).click();
 
-        waitFor(50,driver.findElement(By.className("searchSummary")));
+        waitFor(50,By.className("searchSummary"));
         //verify that result appears for the provided journey search
         Assert.assertTrue(isElementPresent(By.className("searchSummary")));
 
@@ -59,11 +59,11 @@ public class FlightBookingTest {
     }
 
 
-    private void waitFor(int durationInSeconds , WebElement elem) {
+    private void waitFor(int durationInSeconds , By by) {
 		
     	WebDriverWait wait = new WebDriverWait (driver, durationInSeconds);
     	//Wait for durationInSeconds until element is clickable
-    	wait.until(ExpectedConditions.elementToBeClickable(elem));
+    	wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(by)));
     }
 
 

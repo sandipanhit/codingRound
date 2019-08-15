@@ -31,9 +31,11 @@ public class HotelBookingTest {
         setDriverPath();
 
         driver.get("https://www.cleartrip.com/");
-        waitFor(10,driver.findElement(By.linkText("Your trips")));
+        WebDriverWait wait = new WebDriverWait (driver, 25);
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.linkText("Your trips"))));
+        
         hotelLink.click();
-        waitFor(10,localityTextBox);
+        waitFor(10,By.linkText("Hotels"));
         localityTextBox.sendKeys("Indiranagar, Bangalore");
 
         new Select(travellerSelection).selectByVisibleText("1 room, 2 adults");
@@ -43,11 +45,11 @@ public class HotelBookingTest {
 
     }
     
-    private void waitFor(int durationInSeconds , WebElement elem) {
+    private void waitFor(int durationInSeconds , By by) {
 		
     	WebDriverWait wait = new WebDriverWait (driver, durationInSeconds);
     	//Wait for durationInSeconds until element is clickable
-    	wait.until(ExpectedConditions.elementToBeClickable(elem));
+    	wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(by)));
     }
 
     private void setDriverPath() {
