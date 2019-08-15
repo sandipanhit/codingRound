@@ -4,23 +4,39 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
 public class FlightBookingTest {
 
-    WebDriver driver = new ChromeDriver();
+	WebDriver driver;
+	
+  //Create a instance of ChromeOptions class
+    @BeforeClass
+    public void setUp()
+    {
+    	ChromeOptions option = new ChromeOptions();
+    	option.addArguments("--disable-notifications");
+    	driver =new ChromeDriver(option);
+    	
+    }
+    
+
 
 
     @Test
     public void testThatResultsAppearForAOneWayJourney() {
 
         setDriverPath();
+        driver.manage().window().maximize();
         driver.get("https://www.cleartrip.com/");
         waitFor(20,By.id("OneWay"));
         driver.findElement(By.id("OneWay")).click();
@@ -53,9 +69,16 @@ public class FlightBookingTest {
         //verify that result appears for the provided journey search
         Assert.assertTrue(isElementPresent(By.className("searchSummary")));
 
-        //close the browser
-        driver.quit();
+       
 
+    }
+    
+    @AfterClass
+    public void tearDown()
+    {
+    	//close the browser
+    	driver.quit();
+    	
     }
 
 
