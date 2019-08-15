@@ -41,7 +41,7 @@ public class HotelBookingTest {
     @Test
     public void shouldBeAbleToSearchForHotels() {
         setDriverPath();
-
+        driver.manage().window().maximize();
         driver.get("https://www.cleartrip.com/");
         WebDriverWait wait = new WebDriverWait (driver, 25);
         wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.linkText("Your trips"))));
